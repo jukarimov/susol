@@ -26,7 +26,7 @@ int main(int foo, char *bar[])
 	}
 
 	input(bar[1]);
-    getdat();
+	getdat();
 
 	if (fill_min() != -1) {
 		if (chkdat() != 0)
@@ -58,7 +58,7 @@ int main(int foo, char *bar[])
 
 */
 
-    getdat();  
+	getdat();  
 
 	if (fill_max() != -1)
 		if (chkdat() != 0)

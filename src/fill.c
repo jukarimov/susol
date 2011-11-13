@@ -1,3 +1,22 @@
+/*
+   	Susol - sudoku solver
+	Copyright (C) 2011 Jalil U. Karimov <jukarimov@gmail.com>
+
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+*/
+
 #include "main.h"  
 
 int fill_min(void) 
@@ -20,32 +39,32 @@ int fill_min(void)
 				DAT[i][j] = 0; 
 				dec(&i, &j); 
 				if (i == -1) 
-                    break; 
+					break; 
 				//printf("Moving Back to %d, %d\n", i, j); 
 				while (DAT[i][j] == 9 || RAW[i][j] != '.') { 
-                    //printf("Skipped: %d, %d\n", i, j); 
+				//printf("Skipped: %d, %d\n", i, j); 
 					if (RAW[i][j] == '.') 
-                        DAT[i][j] = 0; 
-					dec(&i, &j); 
-					if (i == -1) 
-                        break; 
-				} 
+						DAT[i][j] = 0; 
+						dec(&i, &j); 
+						if (i == -1) 
+							break; 
+				}
 				start = DAT[i][j] + 1; 
 				continue; 
 			} 
 		} 
 		if (i == 8 && j == 8) { 
-		    fprintf(stderr, "fill_min: Last cell reached.\n"); 
-            return 0; 
+			fprintf(stderr, "fill_min: Last cell reached.\n"); 
+			return 0; 
 		} 
 		inc(&i, &j); 
-        if (i == -1) 
-            break; 
+		if (i == -1) 
+			break; 
 		start = 1; 
         //printf("Moving Forwad to %d, %d\n", i, j); 
 	} 
  
-    fprintf(stderr, "fill_min: Could not solve, or something...\n"); 
+	fprintf(stderr, "fill_min: Could not solve, or something...\n"); 
 	return -1; 
 } 
 
@@ -71,10 +90,10 @@ int fill_next(char *fromsu, char *raw)
 
 	if (start == 10) { 
 		inc(&i, &j); 
-    	if (i == -1)
+    		if (i == -1)
 			break; 
 		start = 1;
-	    fprintf(stderr, "start reseted\n"); 
+		fprintf(stderr, "start reseted\n"); 
 	}
 
 	int anti_shit = 10000000;
@@ -85,7 +104,7 @@ int fill_next(char *fromsu, char *raw)
 			break;
 		}
 
-	    //printf("@Cell: [%d,%d]: ", i, j); 
+		//printf("@Cell: [%d,%d]: ", i, j); 
 
 		if (RAW[i][j] == '.') {
 
@@ -99,27 +118,27 @@ int fill_next(char *fromsu, char *raw)
 				DAT[i][j] = 0; 
 				dec(&i, & j); 
 				if (i == -1) 
-                    break; 
+					break; 
 				//printf("Moving Back to %d, %d\n", i, j); 
 				start = TMP[i][j];
 				continue;
 			}
 		}
 		if (i == 8 && j == 8) { 
-		    fprintf(stderr, "fill_next: Last cell reached.\n"); 
+			fprintf(stderr, "fill_next: Last cell reached.\n"); 
 			return 0; 
 		}
 		inc(&i, &j); 
-        if (i == -1) 
-            break; 
+		if (i == -1) 
+			break; 
 		start = TMP[i][j] + 1; 
 		if (start == 10) { 
-		   // fprintf(stderr, "start reseted\n"); 
+			fprintf(stderr, "start reseted\n"); 
 			start = 1;
 		}
 	}
  
-    fprintf(stderr, "fill_next: Could not solve, or something...\n"); 
+	fprintf(stderr, "fill_next: Could not solve, or something...\n"); 
 	return -1; 
 } 
 	
@@ -144,31 +163,31 @@ int fill_max(void)
 				DAT[i][j] = 0; 
 				dec(&i, &j); 
 				if (i == -1) 
-                    break; 
+					break; 
 				//printf("Moving Back to %d, %d\n", i, j); 
 				while (DAT[i][j] == 1 || RAW[i][j] != '.') { 
-                    //printf("Skipped: %d, %d\n", i, j); 
+					//printf("Skipped: %d, %d\n", i, j); 
 					if (RAW[i][j] == '.') 
-                        DAT[i][j] = 0; 
+						DAT[i][j] = 0; 
 					dec(&i, &j); 
 					if (i == -1) 
-                        break; 
+						break; 
 				} 
 				start = DAT[i][j] - 1; 
 				continue; 
 			} 
 		} 
 		if (i == 8 && j == 8) { 
-		    fprintf(stderr, "fill_max: Last cell reached.\n"); 
-            return 0; 
+			fprintf(stderr, "fill_max: Last cell reached.\n"); 
+			return 0; 
 		} 
 		inc(&i, &j); 
-        if (i == -1) 
-            break; 
+		if (i == -1) 
+			break; 
 		start = 9; 
 		//printf("Moving Forwad to %d, %d\n", i, j); 
 	}
 
-    fprintf(stderr, "fill_max: Could not solve, or something...\n"); 
+	fprintf(stderr, "fill_max: Could not solve, or something...\n"); 
 	return -1; 
 } 
